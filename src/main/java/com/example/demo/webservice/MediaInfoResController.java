@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,13 +33,14 @@ public class MediaInfoResController {
     @Autowired
     private MediaInfoRepository mediaInfoRepository;
 
-    @GetMapping(value = "/consultarducas", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/consultarducas", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity findAllDucas(@RequestBody String jsonStr) {
         try {
             JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
             //System.out.println("TRA_PLA_NBR" + json.get("TRA_PLA_NBR").getAsString());
             MediaInfo t = new MediaInfo();
-            t = mediaInfoRepository.findOneTraPlaNbr(json.get("TRA_PLA_NBR").getAsString());
+           
+            t =  mediaInfoRepository.findOneTraPlaNbr(json.get("TRANSPORT_MEDIA_INFO").getAsJsonObject().get("TRA_PLA_NBR").getAsString());
 
             if (t == null) {
                 throw new JsonSyntaxException("701");
@@ -69,11 +70,11 @@ public class MediaInfoResController {
             fe.setFldNam("TRA_PLA_NBR");
             fe.setErrDsc("Numero de placa no encontrada");
 
-            tra.setTraPlaNbr(json.get("TRA_PLA_NBR").getAsString());
-            tra.setBdrCty(json.get("BDR_CTY").getAsString());
-            tra.setChkPnt(json.get("CHK_PNT").getAsInt());
-            tra.setCuoCod(json.get("CUO_COD").getAsString());
-            tra.setScgIde(json.get("SCG_IDE").getAsInt());
+            tra.setTraPlaNbr(json.get("TRANSPORT_MEDIA_INFO").getAsJsonObject().get("TRA_PLA_NBR").getAsString());
+            tra.setBdrCty(json.get("TRANSPORT_MEDIA_INFO").getAsJsonObject().get("BDR_CTY").getAsString());
+            tra.setChkPnt(json.get("TRANSPORT_MEDIA_INFO").getAsJsonObject().get("CHK_PNT").getAsInt());
+            tra.setCuoCod(json.get("TRANSPORT_MEDIA_INFO").getAsJsonObject().get("CUO_COD").getAsString());
+            tra.setScgIde(json.get("TRANSPORT_MEDIA_INFO").getAsJsonObject().get("SCG_IDE").getAsInt());
             
             inf.setIdTransporte(tra);
             inf.setIdFuncionalError(fe);

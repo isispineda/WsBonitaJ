@@ -1,0 +1,35 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: c:\temp\positions.yaml
+
+clients:
+  - url: http://45.40.134.42:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: tomcat
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: tomcat
+          type: httpd
+          tier: web
+          environment: prd
+          instance: tomcat
+          log_class: server
+          __path__:  C:\apps\tomcat\logs\catalina*.log
+          
+          
+          
+  - job_name: sqlserver
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: sqlserver
+          environment: prd
+          log_class: server
+          __path__:  C:\PROGRA~1\MICROS~1\MSSQL13.SCG\MSSQL\Log\ERRORLOG*
