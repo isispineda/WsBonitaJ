@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,8 +33,8 @@ public class MagResController {
     @Autowired
     private MagRepository magRepository;
 
-    @GetMapping(value = "/mag531", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity findAllMag(@RequestBody String jsonStr) {
+    @PostMapping(value = "/mag531", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity findAllMags(@RequestBody String jsonStr) {
         try {
             JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
             JsonArray jsonArray = json.getAsJsonArray("listaDucas");
@@ -57,7 +57,7 @@ public class MagResController {
         for (int i = 0; i < jsonArray.size(); i++) {
             Mag mg = new Mag();
             JsonObject jsonItem = (JsonObject) jsonArray.get(i);
-            mg = magRepository.findOneNoDuca(jsonItem.get("Duca").getAsJsonObject().get("NoDuca").getAsString());
+            mg = magRepository.findOneNoDucaMag(jsonItem.get("Duca").getAsJsonObject().get("NoDuca").getAsString());
             JsonObject selectPadre = new JsonObject();
             if (mg != null) {
                 JsonObject selectHijo = new JsonObject();

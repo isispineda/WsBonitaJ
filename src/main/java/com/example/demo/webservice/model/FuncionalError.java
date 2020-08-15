@@ -45,6 +45,7 @@ public class FuncionalError implements Serializable {
     private String errCod;
     @Column(name = "ERR_DSC")
     private String errDsc;
+    
     @JoinColumn(name = "id_media_info", referencedColumnName = "id_media_info")
     @OneToOne(fetch = FetchType.LAZY)
     @JsonIgnore

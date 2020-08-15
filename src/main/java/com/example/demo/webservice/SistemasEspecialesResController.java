@@ -5,9 +5,9 @@
  */
 package com.example.demo.webservice;
 
-import com.example.demo.webservice.model.Dgme;
 import com.example.demo.webservice.model.MediaInfo;
-import com.example.demo.webservice.repository.DgmeRepository;
+import com.example.demo.webservice.model.SistemasEspeciales;
+import com.example.demo.webservice.repository.SistemasEspecialesRepository;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -28,38 +28,38 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/demo")
-public class DgmeResController {
+public class SistemasEspecialesResController {
 
     @Autowired
-    private DgmeRepository dgmeRepository;
+    private SistemasEspecialesRepository sistemasEspecialesRepository;
 
-    @PostMapping(value = "/dgme521", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity findAllDgme(@RequestBody String jsonStr) {
+    @PostMapping(value = "/sistemasespeciales", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity findAllDucas(@RequestBody String jsonStr) {
         try {
             JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
-            Dgme dgme = new Dgme();
-            System.out.println(json.get("tran_id").getAsString());
-            dgme = dgmeRepository.findOneTranId(json.get("tran_id").getAsInt());
+            SistemasEspeciales se = new SistemasEspeciales();
+            System.out.println(json.get("Codigo_pc").getAsString());
+            se = sistemasEspecialesRepository.findOneScg(json.get("Codigo_pc").getAsString());
 
-            if (dgme == null) {
+            if (se == null) {
                 throw new JsonSyntaxException("701");
             }
-            return ResponseEntity.ok().body(dgme);
+            return ResponseEntity.ok().body(se);
         } catch (JsonSyntaxException ex) {
             System.out.println(" ex " + ex.getMessage());
-            Dgme dgme = new Dgme();
-            dgme = capturarExcepcion(ex.getMessage(), jsonStr);
+            SistemasEspeciales ses = new SistemasEspeciales();
+            ses = capturarExcepcion(ex.getMessage(), jsonStr);
             Logger.getLogger(MediaInfo.class.getName()).log(Level.WARNING, ex.getMessage());
-            return ResponseEntity.ok().body(dgme);
+            return ResponseEntity.ok().body(ses);
         }
     }
 
-    private Dgme capturarExcepcion(String codExepcion, String jsonStr) {
-        Dgme dgme = new Dgme();
+    private SistemasEspeciales capturarExcepcion(String codExepcion, String jsonStr) {
+        SistemasEspeciales esp = new SistemasEspeciales();
         if (codExepcion.equals("701")) {
-            dgme.setErrorDescripcion("Error, registros no econtrados,  "+ LocalDate.now());
+            esp.setCodigoMensaje("Error, registros no econtrados,  "+ LocalDate.now());
         }
-        return dgme;
+        return esp;
     }
 
 }

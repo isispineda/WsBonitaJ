@@ -5,7 +5,7 @@
  */
 package com.example.demo.webservice.repository;
 
-import com.example.demo.webservice.model.Mag;
+import com.example.demo.webservice.model.SistemasEspeciales;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,10 +17,10 @@ import org.springframework.stereotype.Repository;
  * @author Dennys
  */
 @Repository
-public interface MagRepository extends JpaRepository<Mag, Long> {
+public interface SistemasEspecialesRepository extends JpaRepository<SistemasEspeciales, Long> {
 
-    @Query("SELECT t FROM Mag t WHERE t.noDuca = ?1")
-    public Mag findOneNoDucaMag(String noDuca);
+    @Query("SELECT s FROM SistemasEspeciales s WHERE s.scg = ?1")
+    public SistemasEspeciales findOneScg(String scg);
     
     
 }
