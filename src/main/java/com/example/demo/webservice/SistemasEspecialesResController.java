@@ -43,6 +43,8 @@ public class SistemasEspecialesResController {
 
             if (se == null) {
                 throw new JsonSyntaxException("701");
+            }else{
+                updateLectura(String.valueOf(se.getScg()));
             }
             return ResponseEntity.ok().body(se);
         } catch (JsonSyntaxException ex) {
@@ -57,9 +59,15 @@ public class SistemasEspecialesResController {
     private SistemasEspeciales capturarExcepcion(String codExepcion, String jsonStr) {
         SistemasEspeciales esp = new SistemasEspeciales();
         if (codExepcion.equals("701")) {
-            esp.setCodigoMensaje("Error, registros no econtrados,  "+ LocalDate.now());
+            esp.setCodigoMensaje("Error, registros no econtrados,  " + LocalDate.now());
         }
         return esp;
+    }
+
+    private void updateLectura(String id) {
+        if (id != null) {
+           this.sistemasEspecialesRepository.updateStatus(id);
+        }
     }
 
 }
