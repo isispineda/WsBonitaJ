@@ -39,9 +39,12 @@ public class ProcesarDucasResController {
     @PostMapping(value = "/procesarDucas", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity procesarDucas(@RequestBody String jsonString) {
         try {
+      
             JsonObject detalle = new JsonObject();
             JsonArray jsonArray = new JsonArray();
             JsonObject json = new Gson().fromJson(jsonString, JsonObject.class);
+            System.out.println("JSON_IN");
+            System.out.println(json.toString());
             if (json.get("TRANSPORT_MEDIA_INFO").getAsJsonObject().get("TRA_PLA_NBR") == null || json.get("TRANSPORT_MEDIA_INFO").getAsJsonObject().get("TRA_PLA_NBR").isJsonNull()) {
                 jsonArray.add(crearErrorFuncional("TRA_PLA_NBR", "Falta codigo de placa"));
             }
@@ -87,6 +90,8 @@ public class ProcesarDucasResController {
                 }
             }
             detalle.add("PROCCESSED_DUCA_LIST", ducaArray);
+            System.out.println("JSON_OUT");
+            System.out.println(detalle.toString());
             return ResponseEntity.ok().body(detalle.toString());
         } catch (Exception ex) {
             JsonObject errorException = new JsonObject();

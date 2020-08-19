@@ -69,5 +69,110 @@ public class SistemasEspecialesResController {
            this.sistemasEspecialesRepository.updateStatus(id);
         }
     }
+    
+    
+    @PostMapping(value = "/instruccionautomatica", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity intAutomatica(@RequestBody String jsonStr) {
+        try {
+            JsonObject jsonOut = new JsonObject();
+            JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
+            SistemasEspeciales se = new SistemasEspeciales();
+            System.out.println(json.get("ID_ORIGEN_LA").getAsString());
+            System.out.println(json.get("PLACA").getAsString());
+            se = sistemasEspecialesRepository.findResultAutomatic(json.get("ID_ORIGEN_LA").getAsString(), json.get("PLACA").getAsString());
+
+            if (se == null) {
+                throw new JsonSyntaxException("701");
+            }else{
+              jsonOut.addProperty("CODIGO_MENSAJE", se.getCodigoMensaje());
+              jsonOut.addProperty("NO_PLUMA", se.getNoPluma());
+              jsonOut.addProperty("ACCION_PLUMA", se.getAccionPluma());
+            }
+            return ResponseEntity.ok().body(jsonOut.toString());
+        } catch (JsonSyntaxException ex) {
+            System.out.println(" ex " + ex.getMessage());
+            SistemasEspeciales ses = new SistemasEspeciales();
+            ses = capturarExcepcion(ex.getMessage(), jsonStr);
+            Logger.getLogger(MediaInfo.class.getName()).log(Level.WARNING, ex.getMessage());
+            return ResponseEntity.ok().body(ses);
+        }
+    }
+    
+    @PostMapping(value = "/sistemasespecialesout", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity sistemasEspecialesOut(@RequestBody String jsonStr) {
+        try {
+            JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
+            SistemasEspeciales se = new SistemasEspeciales();
+            System.out.println(json.get("ID_ORIGEN_LA").getAsString());
+            System.out.println(json.get("PLACA").getAsString());
+            se = sistemasEspecialesRepository.findOneSEOut(json.get("ID_ORIGEN_LA").getAsString(), json.get("PLACA").getAsString());
+
+            if (se == null) {
+                throw new JsonSyntaxException("701");
+            }else{
+           //No implementado!
+            }
+            return ResponseEntity.ok().body(se);
+        } catch (JsonSyntaxException ex) {
+            System.out.println(" ex " + ex.getMessage());
+            SistemasEspeciales ses = new SistemasEspeciales();
+            ses = capturarExcepcion(ex.getMessage(), jsonStr);
+            Logger.getLogger(MediaInfo.class.getName()).log(Level.WARNING, ex.getMessage());
+            return ResponseEntity.ok().body(ses);
+        }
+    }
+    
+    
+    @PostMapping(value = "/verificacionoutdga", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity verificacionOutDga(@RequestBody String jsonStr) {
+        try {
+            JsonObject jsonOut = new JsonObject();
+            JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
+            SistemasEspeciales se = new SistemasEspeciales();
+            System.out.println(json.get("ID_ORIGEN_LA").getAsString());
+            System.out.println(json.get("PLACA").getAsString());
+            se = sistemasEspecialesRepository.findOneVerificacionOutDGA(json.get("ID_ORIGEN_LA").getAsString(), json.get("PLACA").getAsString());
+
+            if (se == null) {
+              jsonOut.addProperty("MENSAJE", "NULL, ERRORS");
+            }else{
+              jsonOut.addProperty("MENSAJE", "OK, SUCCESS");
+            }
+            return ResponseEntity.ok().body(jsonOut.toString());
+        } catch (JsonSyntaxException ex) {
+            System.out.println(" ex " + ex.getMessage());
+            SistemasEspeciales ses = new SistemasEspeciales();
+            ses = capturarExcepcion(ex.getMessage(), jsonStr);
+            Logger.getLogger(MediaInfo.class.getName()).log(Level.WARNING, ex.getMessage());
+            return ResponseEntity.ok().body(ses);
+        }
+    }
+    
+    @PostMapping(value = "/enviodga", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void envioDGA(@RequestBody String jsonStr) {
+        try {
+            JsonObject jsonOut = new JsonObject();
+            JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
+            SistemasEspeciales se = new SistemasEspeciales();
+           // System.out.println(json.get("ID_ORIGEN_LA").getAsString());
+            System.out.println(json.get("PLACA").getAsString());
+            se = sistemasEspecialesRepository.findOneEnvioDGA(json.get("PLACA").getAsString());
+
+            if (se == null) {
+              System.out.println("ENVIODGA, ERROR-VACIO ");
+              //jsonOut.addProperty("MENSAJE", "NULL, ERRORS");
+            }else{
+                 System.out.println("ENVIODGA, SUCCESS ");
+              //jsonOut.addProperty("MENSAJE", "OK, SUCCESS");
+            }
+           //return ResponseEntity.ok().body(jsonOut.toString());
+        } catch (JsonSyntaxException ex) {
+            System.out.println(" ex " + ex.getMessage());
+            SistemasEspeciales ses = new SistemasEspeciales();
+            ses = capturarExcepcion(ex.getMessage(), jsonStr);
+            Logger.getLogger(MediaInfo.class.getName()).log(Level.WARNING, ex.getMessage());
+         //   return ResponseEntity.ok().body(ses);
+        }
+    }
 
 }

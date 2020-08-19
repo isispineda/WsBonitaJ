@@ -1,7 +1,7 @@
 # scg
 
 ***********************************************Web Services Consultat Ducas **************************************************************
-URL: localhost:8181/demo/consultarducas
+URL: http://www.deicop.com:8081/springws/demo/consultarducas
 TYPE: POST
 1. Forma correcta de ejecutarlo:
   a) 
@@ -39,7 +39,7 @@ TYPE: POST
 
 
 *****************5.2.1	CASO DE PRUEBA 1. ENVIO Y RECEPCION INCIAL DE INFORMACION DGME******************************************************
-URL: localhost:8181/demo/dgme521
+URL: http://www.deicop.com:8081/springws/demo/dgme521
 type:GET
 1. Forma correcta de ejecutarlo:
   a) 
@@ -71,7 +71,7 @@ type:GET
   *****************************************************************************************************************************************
 
 *****************5.3.1	ENVIO Y RECEPCION INCIAL DE INFORMACION MAG************************************************************************
-URL: localhost:8181/demo/mag531
+URL: http://www.deicop.com:8081/springws/demo/mag531
 type:GET
 1. Forma correcta de ejecutarlo:
   {
@@ -127,7 +127,7 @@ type:GET
 
 
 *****************PROCESAR DUCAS*************************************************************************************************************
-URL: http://localhost:8181/REST/procesarDucas
+URL: http://http://www.deicop.com:8081/springws/REST/procesarDucas
 type:POST
 1. Forma correcta de ejecutarlo:
 {

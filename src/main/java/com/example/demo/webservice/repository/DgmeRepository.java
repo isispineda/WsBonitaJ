@@ -19,8 +19,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DgmeRepository extends JpaRepository<Dgme, Long> {
 
-    @Query("SELECT t FROM Dgme t WHERE t.tranId = ?1")
-    public Dgme findOneTranId(int tranId);
+    @Query("SELECT t FROM Dgme t WHERE t.placa = ?1")
+    public Dgme findOneTranId(String placa);
     
     
 }

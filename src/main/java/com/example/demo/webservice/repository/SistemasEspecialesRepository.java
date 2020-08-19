@@ -20,11 +20,23 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SistemasEspecialesRepository extends JpaRepository<SistemasEspeciales, Long> {
 
-    @Query("SELECT s FROM SistemasEspeciales s WHERE s.scg = ?1")
+    @Query("SELECT s FROM SistemasEspeciales s WHERE s.scg = ?1 ")//and s.estadoLectura ='P'
     public SistemasEspeciales findOneScg(String scg);
 
     @Transactional
     @Modifying
-    @Query("UPDATE SistemasEspeciales s SET s.estadoLectura ='L'  WHERE s.scg = ?1")
+    @Query("UPDATE SistemasEspeciales s SET s.estadoLectura ='L'  WHERE s.scg = ?1 and s.estadoLectura ='P'")
     public void updateStatus(String scg);
+
+    @Query("SELECT s FROM SistemasEspeciales s WHERE s.idOrigenLa = ?1 and s.placa = ?2")
+    public SistemasEspeciales findResultAutomatic(String idOrigenLa, String placa);
+
+    @Query("SELECT s FROM SistemasEspeciales s WHERE s.idOrigenLa = ?1 and s.placa = ?2")
+    public SistemasEspeciales findOneSEOut(String idOrigenLa, String placa);
+
+    @Query("SELECT s FROM SistemasEspeciales s WHERE s.idOrigenLa = ?1 and s.placa = ?2")
+    public SistemasEspeciales findOneVerificacionOutDGA(String idOrigenLa, String placa);
+
+    @Query("SELECT s FROM SistemasEspeciales s WHERE  s.placa = ?1")
+    public SistemasEspeciales findOneEnvioDGA( String placa);
 }

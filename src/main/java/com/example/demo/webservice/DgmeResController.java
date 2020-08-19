@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author Moises
+ * @author 
  */
 @RestController
 @RequestMapping("/demo")
@@ -38,8 +38,8 @@ public class DgmeResController {
         try {
             JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
             Dgme dgme = new Dgme();
-            System.out.println(json.get("tran_id").getAsString());
-            dgme = dgmeRepository.findOneTranId(json.get("tran_id").getAsInt());
+            System.out.println(json.get("placa").getAsString());
+            dgme = dgmeRepository.findOneTranId(json.get("placa").getAsString());
 
             if (dgme == null) {
                 throw new JsonSyntaxException("701");
