@@ -24,32 +24,28 @@ import lombok.Setter;
  * @author Moises
  */
 @Entity
-@Table(name = "lecturaplaca")
+@Table(name = "flujo")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class LecturaPlaca implements Serializable {
+public class Flujo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Long id;
 
     @Basic(optional = false)
-    @Column(name = "processId")
-    private Long processId;
+    @Column(name = "PLACA")
+    private String placa;
 
     @Basic(optional = false)
-    @Column(name = "numplaca")
-    private String numplaca;
-
-    @Basic(optional = false)
-    @Column(name = "procesado", length = 2)
-    private String procesado;
+    @Column(name = "ESTADO_FLUJO ", length = 1)
+    private String estadoFlujo;
 
     @Override
     public int hashCode() {
@@ -69,7 +65,7 @@ public class LecturaPlaca implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LecturaPlaca other = (LecturaPlaca) obj;
+        final Flujo other = (Flujo) obj;
         return true;
     }
 
