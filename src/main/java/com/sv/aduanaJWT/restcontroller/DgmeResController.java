@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example.demo.webservice;
+package com.sv.aduanaJWT.restcontroller;
 
-import com.example.demo.webservice.model.Dgme;
-import com.example.demo.webservice.model.MediaInfo;
-import com.example.demo.webservice.repository.DgmeRepository;
+import com.sv.aduanaJWT.model.Dgme;
+import com.sv.aduanaJWT.model.MediaInfo;
+import com.sv.aduanaJWT.repository.DgmeRepository;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,16 +25,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author 
+ * @author
  */
 @RestController
-@RequestMapping("/demo")
+@PreAuthorize("isAuthenticated()")
+@RequestMapping("/dgme")
 public class DgmeResController {
 
     @Autowired
     private DgmeRepository dgmeRepository;
 
-    @PostMapping(value = "/dgme521", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/recibirDatosDGME", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity findAllDgme(@RequestBody String jsonStr) {
         try {
             JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
@@ -57,7 +59,7 @@ public class DgmeResController {
     private Dgme capturarExcepcion(String codExepcion, String jsonStr) {
         Dgme dgme = new Dgme();
         if (codExepcion.equals("701")) {
-            dgme.setErrorDescripcion("Error, registros no econtrados,  "+ LocalDate.now());
+            dgme.setErrorDescripcion("Error, registros no econtrados,  " + LocalDate.now());
         }
         return dgme;
     }

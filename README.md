@@ -1,49 +1,29 @@
 # scg
 
-***********************************************Web Services Consultat Ducas **************************************************************
-URL: http://www.deicop.com:8081/springws/demo/consultarducas
-TYPE: POST
-1. Forma correcta de ejecutarlo:
-  a) 
-      {
-      "TRANSPORT_MEDIA_INFO":{
-      "TRA_PLA_NBR":"PL00120",
-      "BDR_CTY":"GT",
-      "CHK_PNT":0,
-      "CUO_COD":"05",
-      "SCG_IDE":25
-      }
-      }
-  b) 
-      {
-      "TRANSPORT_MEDIA_INFO":{
-      "TRA_PLA_NBR":"PL00808",
-      "BDR_CTY":"GT",
-      "CHK_PNT":0,
-      "CUO_COD":"05",
-      "SCG_IDE":25
-      }
-      }    
-          
- 2. Capturar una excepcion:
-      {
-      "TRANSPORT_MEDIA_INFO":{
-      "TRA_PLA_NBR":"PLACA_NO_EXISTE",
-      "BDR_CTY":"GT",
-      "CHK_PNT":0,
-      "CUO_COD":"05",
-      "SCG_IDE":25
-      }
-      }
-  *****************************************************************************************************************************************
+***********************************************CREACION DE TOKEN DE EJEMPLO*****************************************************************
+SITIO PARA CREAR TOKEN: https://jwt.io/
 
+PAYLOAD:
+{
+      	"alg": "HS256",---Tipo de algoritmo de encriptacion 
+      	"typ": "JWT"------Tipo de token
+}
+{
+  "exp": 1605295079,---Fecha de expiracion
+  "sub": "ANGUIATU",---Sujeto que emite el token
+  "iat": 1605217320 ---Fecha de creacion en formato UNIX
+}
 
-*****************5.2.1	CASO DE PRUEBA 1. ENVIO Y RECEPCION INCIAL DE INFORMACION DGME******************************************************
-URL: http://www.deicop.com:8081/springws/demo/dgme521
-type:GET
-1. Forma correcta de ejecutarlo:
+SECRET KEY DEL TOKEN: U0lTVEVNQURFQVVURU5USUNBQ0lPTlBBUkFTRVJWSUNJT1dFQlJFU0FQSVNDRw==
+
+***********************************************************************************************************************************
+
+*********************************ENVIO Y RECEPCION INCIAL DE INFORMACION DGME******************************************************
+URL: http://www.deicop.com:8081/aduanaJWT/dgme/recibirDatosDGME
+TYPE:POST
+1. FORMA CORRECTA DE EJECUTARLO:
   a) 
-       		{
+       	{
 	     "placa ": "ejemplo placa tractor",
 	     "fecha": "2020-05-15T16:03:11.4748104-03:00",
 	     "caseta": "4",
@@ -59,107 +39,4 @@ type:GET
 	     "tran_id":11
         }
           
-          
- 2. Capturar una excepcion:
-		{
-	     "placa ": "ejemplo placa tractor",
-	     "fecha": "2020-05-15T16:03:11.4748104-03:00",
-	     "caseta": "4",
-	     "movimiento": 1,
-	     "tran_id":100
-        }	
-  *****************************************************************************************************************************************
-
-*****************5.3.1	ENVIO Y RECEPCION INCIAL DE INFORMACION MAG************************************************************************
-URL: http://www.deicop.com:8081/springws/demo/mag531
-type:GET
-1. Forma correcta de ejecutarlo:
-  {
-   "listaDucas":[
-      {
-         "Duca":{
-            "NoDuca":"D001-"
-          
-         }
-       
-      },
-
-      {
-         "Duca":{
-            "NoDuca":"D002"
-           
-         }
-        
-      },
-   
-      {
-         "Duca":{
-            "NoDuca":"D003"
-           
-         }
-      
-      },
-       {
-         "Duca":{
-            "NoDuca":"D004"
-           
-         }
-      
-      },
-       {
-         "Duca":{
-            "NoDuca":"D004"
-           
-         }
-      
-      },
-       {
-         "Duca":{
-            "NoDuca":"D005"
-           
-         }
-      
-      }
-
-   ]
-}
-  *****************************************************************************************************************************************
-
-
-*****************PROCESAR DUCAS*************************************************************************************************************
-URL: http://http://www.deicop.com:8081/springws/REST/procesarDucas
-type:POST
-1. Forma correcta de ejecutarlo:
-{
-    "TRANSPORT_MEDIA_INFO":{
-        "TRA_PLA_NBR":"PL00120",
-        "BDR_CTY":"GT",
-        "CHK_PNT":0,
-        "CUO_COD":"05",
-        "SCG_IDE":25
-    },
-    "DUCAS_TO_PROCCESS_LIST":[
-        {
-            "DOC_TYP":"DUCAF",
-            "REF_YER":2020,
-            "CUO_COD":"05",
-            "REG_SER":"4",
-            "REG_NBR":"258"
-        },
-        {
-            "DOC_TYP":"DUCAT",
-            "REF_YER":2020,
-            "CUO_COD":"05",
-            "REG_SER":"",
-            "REG_NBR":"234"
-        },
-        {
-            "DOC_TYP":"DUCAD",
-            "REF_YER":2020,
-            "CUO_COD":"05",
-            "REG_SER":"4",
-            "REG_NBR":"258"
-        }
-    ]
-}
-  *****************************************************************************************************************************************
+***********************************************************************************************************************************

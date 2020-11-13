@@ -7,7 +7,7 @@
             </packagings>
       
             <properties>
-                <exec.args>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath com.example.demo.DemoApplication</exec.args>
+                <exec.args>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath com.sv.aduanaJWT.DemoApplication</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
@@ -19,7 +19,7 @@
             </packagings>
     
             <properties>
-                <exec.args>-classpath %classpath com.example.demo.DemoApplication</exec.args>
+                <exec.args>-classpath %classpath com.sv.aduanaJWT.DemoApplication</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -30,7 +30,7 @@
             </packagings>
     
             <properties>
-                <exec.args>-classpath %classpath com.example.demo.DemoApplication</exec.args>
+                <exec.args>-classpath %classpath com.sv.aduanaJWT.DemoApplication</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
