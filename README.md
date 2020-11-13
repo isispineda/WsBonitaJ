@@ -4,7 +4,7 @@
 
 #### SITIO PARA CREAR TOKEN: https://jwt.io/
 
-####PAYLOAD:
+#### PAYLOAD:
 {
       	"alg": "HS256",---Tipo de algoritmo de encriptacion 
       	"typ": "JWT"------Tipo de token
